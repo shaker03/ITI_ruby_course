@@ -1,0 +1,20 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Articles" %>
+<header style="display: flex; justify-content: start; align-items: center; ">
+<h1>Articles</h1>
+
+<%= link_to "New article", new_article_path, style: "margin-left: 20px;" %>
+</header>
+<div id="articles">
+  <% @articles.each do |article| %>
+    <h2><%= article.title %></h2>
+    <% if article.image.attached? %>
+      <%= image_tag article.image, style: "max-width: 200px; max-height: 300px;" %>
+    <% end %>
+    <p>
+      <%= link_to "Show this article", article %>
+    </p>
+  <% end %>
+</div>
+

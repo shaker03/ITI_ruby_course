@@ -1,19 +1,23 @@
 Rails.application.routes.draw do
-  # get "/products", to: "products#index"
+  devise_for :users
 
-  # get "/products/new", to: "products#new"
-  # post "/products", to: "products#create"
+  get "my_articles", to: "articles#my_articles"
 
-  # get "/products/:id", to: "products#show"
+  resources :articles do
+    member do
+      post :report
+    end
+  end
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # get "/products/:id/edit", to: "products#edit"
-  # patch "/products/:id", to: "products#update"
-  # put "/products/:id", to: "products#update"
+  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
+  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  get "up" => "rails/health#show", as: :rails_health_check
 
-  # delete "/products/:id", to: "products#destroy"
+  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
+  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
+  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  # This line sets the root path of the application to the index action of the products controller
-  root "products#index"
-  #this line replaces all the above CRUD routes for products
-  resources :products
+  # Defines the root path route ("/")
+  root "articles#index"
 end

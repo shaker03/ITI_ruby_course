@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Store" %></title>
+    <title><%= content_for(:title) || "Blog" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Store">
+    <meta name="application-name" content="Blog">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -23,7 +23,18 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+ <body>
+    <nav style="background-color: #f3f4f6; padding: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center  ;">
+  
+      <% if user_signed_in? %>
+        <strong>Welcome, <%= current_user.email %>!</strong> |
+        <%= link_to "All Articles", articles_path %> |
+        <%= link_to "My Articles", my_articles_path %> |
+        <%= button_to "Log out", destroy_user_session_path, method: :delete, style: "display: inline-block; margin-left: 10px;" %>
+        
+      <% end %>
+    </nav>
+    
     <%= yield %>
   </body>
 </html>
